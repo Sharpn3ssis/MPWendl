@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export const AddSourcePage: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <div style={{padding:20}}>
+    <div className="add-source-page">
       <NewSourceForm onAdded={() => navigate('/dashboard')} />
     </div>
   );

@@ -35,9 +35,9 @@
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-xl);
   width: 100%;
-  max-width: 420px;
+  max-width: 400px;
   border: 1px solid var(--border-subtle);
-  animation: fadeInUp 0.5s var(--ease-out);
+  animation: fadeInUp 0.4s var(--ease-out);
 }
 
 .login-form h2 {
@@ -84,7 +84,7 @@
 .login-form button {
   width: 100%;
   padding: var(--space-3) var(--space-4);
-  background: var(--gradient-primary);
+  background: var(--accent-primary);
   color: white;
   border: none;
   border-radius: var(--radius-lg);
@@ -96,7 +96,7 @@
 }
 
 .login-form button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow: var(--shadow-lg), var(--shadow-glow);
 }
 

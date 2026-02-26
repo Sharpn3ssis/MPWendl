@@ -45,22 +45,22 @@ export const NewSourceForm: React.FC<Props> = ({ onAdded }) => {
   };
 
   return (
-    <div style={{display:'flex', justifyContent:'center', padding:'2rem'}}>
-      <form onSubmit={handleSubmit} style={{width:'100%',maxWidth:840,background:'var(--surface)',padding:20,borderRadius:10,boxShadow:'0 6px 18px rgba(0,0,0,0.5)'}}>
-        <h3 style={{marginTop:0}}>Přidat pramen</h3>
-        {error && <div style={{color:'#fca5a5',marginBottom:12}}>{error}</div>}
-        <div style={{display:'grid',gridTemplateColumns:'1fr 120px',gap:12,alignItems:'start'}}>
-          <div>
-            <label style={{display:'block',marginBottom:6,color:'var(--muted)'}}>Název (nepovinné)</label>
-            <input value={title} onChange={e=>setTitle(e.target.value)} style={{width:'100%',padding:10,borderRadius:6,border:'1px solid rgba(255,255,255,0.06)',background:'transparent',color:'var(--text)'}} />
+    <div className="new-source-wrapper">
+      <form onSubmit={handleSubmit} className="new-source-form">
+        <h3 className="new-source-title">Přidat pramen</h3>
+        {error && <div className="new-source-error">{error}</div>}
+        <div className="new-source-grid">
+          <div className="form-group">
+            <label>Název (nepovinné)</label>
+            <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="Zadejte název pramene..." />
           </div>
-          <div>
-            <label style={{display:'block',marginBottom:6,color:'var(--muted)'}}>Rok</label>
-            <input value={year as any} onChange={e=>setYear(e.target.value?Number(e.target.value):'')} style={{width:'100%',padding:10,borderRadius:6,border:'1px solid rgba(255,255,255,0.06)',background:'transparent',color:'var(--text)'}} />
+          <div className="form-group">
+            <label>Rok</label>
+            <input value={year as any} onChange={e=>setYear(e.target.value?Number(e.target.value):'')} placeholder="např. 1918" />
           </div>
         </div>
-        <div style={{marginTop:12}}>
-          <label style={{display:'block',marginBottom:6,color:'var(--muted)'}}>Text pramene (povinné)</label>
+        <div className="form-group">
+          <label>Text pramene (povinné)</label>
           <RichTextEditor
             value={contentHtml}
             placeholder="Sepište pramen…"
@@ -70,11 +70,11 @@ export const NewSourceForm: React.FC<Props> = ({ onAdded }) => {
             }}
           />
         </div>
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:14,gap:16}}>
-          <span style={{fontSize:13,color:'var(--muted)',fontStyle:'italic'}}>
+        <div className="new-source-footer">
+          <span className="new-source-hint">
             💡 Text pramene můžete kdykoliv upravit i po vytvoření
           </span>
-          <button type="submit" disabled={loading} style={{padding:'0.5rem 1rem'}}>{loading? 'Ukládám...':'Uložit pramen'}</button>
+          <button type="submit" disabled={loading} className="new-source-submit">{loading? 'Ukládám...':'Uložit pramen'}</button>
         </div>
       </form>
     </div>
