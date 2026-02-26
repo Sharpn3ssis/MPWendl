@@ -7,6 +7,7 @@ import { Dashboard } from './pages/Dashboard'
 import { AddSourcePage } from './pages/AddSourcePage'
 import { SourcePage } from './pages/SourcePage'
 import { Navbar } from './components/Navbar'
+import { DevBanner } from './components/DevBanner'
 import './App.css'
 
 type AppShellProps = {
@@ -21,6 +22,7 @@ const AppShell = ({ isAuthenticated, onLogin, onLogout }: AppShellProps) => {
 
   return (
     <div className="App">
+      <DevBanner />
       <Navbar isAuthenticated={isAuthenticated} onLogout={onLogout} />
       <main className={`main-content${isSourcePage ? ' main-content--wide' : ''}`}>
         <Routes>
