@@ -167,6 +167,8 @@ export const QuizRunner: React.FC<Props> = ({ questions }) => {
 			setShowingResult(false);
 			setTextInput('');
 			setHint(null);
+			setHintCount(0);
+			setHintAnswer('');
 			setAiResult(null);
 			setAiError(null);
 			setSlideDirection('in');
@@ -180,19 +182,17 @@ export const QuizRunner: React.FC<Props> = ({ questions }) => {
 			.filter((answer) => answer.length);
 		if (!normalized.length) return;
 		
-		// Pick a random answer on first click, then keep revealing letters
-		let answer = hintAnswer;
-		if (!answer) {
-			answer = normalized[Math.floor(Math.random() * normalized.length)];
-			setHintAnswer(answer);
-		}
-		
-		const nextCount = hintCount + 1;
-		if (nextCount > answer.length) return;
-		
-		setHintCount(nextCount);
-		setHint(answer.slice(0, nextCount).toUpperCase());
-	}, [allowedTextAnswers, hint, hintCount, hintAnswer]);
+		setHintAnswer((prev) => {
+			const answer = prev || normalized[Math.floor(Math.random() * normalized.length)];
+			setHintCount((prevCount) => {
+				const nextCount = prevCount + 1;
+				if (nextCount > answer.length) return prevCount;
+				setHint(answer.slice(0, nextCount).toUpperCase());
+				return nextCount;
+			});
+			return answer;
+		});
+	}, [allowedTextAnswers]);
 
 	const resetQuiz = useCallback(() => {
 		setCurrentIndex(0);
@@ -345,9 +345,9 @@ export const QuizRunner: React.FC<Props> = ({ questions }) => {
 											type="button" 
 											className="quiz-hint-btn"
 											onClick={revealHint}
-											disabled={!allowedTextAnswers.length || !!hint}
+											disabled={!allowedTextAnswers.length || (hintAnswer.length > 0 && hintCount >= hintAnswer.length)}
 										>
-											💡 Nápověda
+											💡 Nápověda {hintCount > 0 && `(${hintCount})`}
 										</button>
 										<button type="submit" className="quiz-submit-btn" disabled={!textInput.trim()}>
 											Ověřit
