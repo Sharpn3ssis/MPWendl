@@ -3383,11 +3383,89 @@ button:disabled {
 }
 
 .quiz-hint-reveal {
-  padding: var(--space-3);
-  background: rgba(245, 158, 11, 0.1);
-  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  animation: hintFadeIn 0.3s ease;
+}
+
+@keyframes hintFadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.quiz-hint-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: var(--text-sm);
   color: var(--color-warning);
+  font-weight: 600;
+}
+
+.quiz-hint-counter {
+  font-weight: 400;
+  opacity: 0.7;
+  font-size: var(--text-xs);
+}
+
+.quiz-hint-letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+}
+
+.quiz-hint-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s ease;
+}
+
+.quiz-hint-letter.revealed {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--color-warning);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  animation: letterPop 0.35s ease both;
+}
+
+.quiz-hint-letter.hidden {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-primary);
+  opacity: 0.5;
+}
+
+@keyframes letterPop {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.quiz-hint-progress {
+  height: 4px;
+  background: var(--bg-secondary);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.quiz-hint-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b, #f97316);
+  border-radius: 999px;
+  transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
 }
 
 .quiz-text-result {

@@ -45,6 +45,8 @@ export const QuizRunner: React.FC<Props> = ({ questions }) => {
 	const [slideDirection, setSlideDirection] = useState<'in' | 'out' | null>(null);
 	const [quizComplete, setQuizComplete] = useState(false);
 	const [hint, setHint] = useState<string | null>(null);
+	const [hintCount, setHintCount] = useState(0);
+	const [hintAnswer, setHintAnswer] = useState<string>('');
 	
 	// AI evaluation state
 	const [aiLoading, setAiLoading] = useState(false);
@@ -173,16 +175,24 @@ export const QuizRunner: React.FC<Props> = ({ questions }) => {
 	}, [currentIndex, totalQuestions]);
 
 	const revealHint = useCallback(() => {
-		if (hint) return;
 		const normalized = allowedTextAnswers
 			.map((answer) => answer.trim())
 			.filter((answer) => answer.length);
 		if (!normalized.length) return;
-		const longestAnswer = normalized.reduce((longest, candidate) =>
-			candidate.length > longest.length ? candidate : longest
-		);
-		setHint(longestAnswer.slice(0, 2).toUpperCase());
-	}, [allowedTextAnswers, hint]);
+		
+		// Pick a random answer on first click, then keep revealing letters
+		let answer = hintAnswer;
+		if (!answer) {
+			answer = normalized[Math.floor(Math.random() * normalized.length)];
+			setHintAnswer(answer);
+		}
+		
+		const nextCount = hintCount + 1;
+		if (nextCount > answer.length) return;
+		
+		setHintCount(nextCount);
+		setHint(answer.slice(0, nextCount).toUpperCase());
+	}, [allowedTextAnswers, hint, hintCount, hintAnswer]);
 
 	const resetQuiz = useCallback(() => {
 		setCurrentIndex(0);
@@ -192,6 +202,10 @@ export const QuizRunner: React.FC<Props> = ({ questions }) => {
 		setSlideDirection(null);
 		setQuizComplete(false);
 		setHint(null);
+		setHintCount(0);
+		setHintAnswer('');
+		setHintCount(0);
+		setHintAnswer('');
 		setAiResult(null);
 		setAiError(null);
 		setAiLoading(false);
@@ -343,7 +357,27 @@ export const QuizRunner: React.FC<Props> = ({ questions }) => {
 							</form>
 							{hint && !showingResult && (
 								<div className="quiz-hint-reveal">
-									Tip: začíná na <strong>{hint}</strong>
+									<div className="quiz-hint-header">
+										<span>💡 Nápověda</span>
+										<span className="quiz-hint-counter">{hintCount} / {hintAnswer.length} písmen</span>
+									</div>
+									<div className="quiz-hint-letters">
+										{hintAnswer.split('').map((letter, i) => (
+											<span 
+												key={i} 
+												className={`quiz-hint-letter ${i < hintCount ? 'revealed' : 'hidden'}`}
+												style={{ animationDelay: i < hintCount ? `${i * 0.05}s` : '0s' }}
+											>
+												{i < hintCount ? letter.toUpperCase() : '•'}
+											</span>
+										))}
+									</div>
+									<div className="quiz-hint-progress">
+										<div 
+											className="quiz-hint-progress-fill"
+											style={{ width: `${(hintCount / hintAnswer.length) * 100}%` }}
+										/>
+									</div>
 								</div>
 							)}
 							{showingResult && currentResult && (
