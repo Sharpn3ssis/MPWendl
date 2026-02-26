@@ -498,8 +498,6 @@ const createDbConnection = async () => {
       user: process.env.DB_USER || 'root',
       password: process.env.DB_PASSWORD || 'admin',
       database: process.env.DB_NAME || 'badatelsky_dejepis',
-      ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined
-      database: process.env.DB_NAME || 'badatelsky_dejepis',
       ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined,
     });
     console.log('Úspěšně připojeno k databázi');
