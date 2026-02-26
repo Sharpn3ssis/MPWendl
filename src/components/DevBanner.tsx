@@ -24,27 +24,18 @@ export const DevBanner = () => {
 
   return (
     <div className={`dev-banner ${isAnimatingOut ? 'dev-banner--closing' : ''}`}>
-      <div className="dev-banner__icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </div>
       <div className="dev-banner__content">
-        <span className="dev-banner__title">🚧 Vývojová verze</span>
         <span className="dev-banner__text">
-          Na této aplikaci stále pracujeme. Některé funkce nemusí být dostupné nebo mohou obsahovat chyby.
+          🛠️ Na aplikaci stále pracujeme — děkujeme za trpělivost!
         </span>
       </div>
       <button 
         className="dev-banner__close" 
         onClick={handleClose}
         aria-label="Zavřít upozornění"
+        title="Zavřít"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
+        ✕
       </button>
     </div>
   );
