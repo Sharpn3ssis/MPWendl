@@ -1,0 +1,150 @@
+.theme-toggle {
+  --toggle-width: 56px;
+  --toggle-height: 28px;
+  --thumb-size: 22px;
+  --toggle-padding: 3px;
+  
+  position: relative;
+  width: var(--toggle-width);
+  height: var(--toggle-height);
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+
+.theme-toggle__track {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.3),
+    0 1px 2px rgba(255, 255, 255, 0.1);
+  transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.theme-toggle--light .theme-toggle__track {
+  background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.15),
+    0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  top: var(--toggle-padding);
+  left: var(--toggle-padding);
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle--light .theme-toggle__thumb {
+  transform: translateX(calc(var(--toggle-width) - var(--thumb-size) - var(--toggle-padding) * 2));
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  box-shadow: 
+    0 2px 8px rgba(251, 191, 36, 0.4),
+    0 0 20px rgba(251, 191, 36, 0.3);
+}
+
+.theme-toggle__icon {
+  width: 14px;
+  height: 14px;
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+}
+
+.theme-toggle__icon--sun {
+  color: #f59e0b;
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+}
+
+.theme-toggle__icon--moon {
+  color: #475569;
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-toggle--light .theme-toggle__icon--sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-toggle--light .theme-toggle__icon--moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+
+/* Hover effects */
+.theme-toggle:hover .theme-toggle__thumb {
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.35),
+    0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.theme-toggle--light:hover .theme-toggle__thumb {
+  box-shadow: 
+    0 4px 12px rgba(251, 191, 36, 0.5),
+    0 0 24px rgba(251, 191, 36, 0.4);
+}
+
+/* Stars animation for dark mode track */
+.theme-toggle__track::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 3px;
+  height: 3px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 
+    6px 4px 0 0 rgba(255, 255, 255, 0.6),
+    12px -2px 0 -1px rgba(255, 255, 255, 0.4),
+    4px 8px 0 -1px rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.theme-toggle--light .theme-toggle__track::before {
+  opacity: 0;
+}
+
+/* Cloud decoration for light mode */
+.theme-toggle__track::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 6px;
+  width: 16px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.4s ease;
+}
+
+.theme-toggle--light .theme-toggle__track::after {
+  opacity: 1;
+  transform: translateX(0);
+}
