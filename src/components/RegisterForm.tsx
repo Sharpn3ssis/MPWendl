@@ -7,7 +7,6 @@ export const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('student');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ export const RegisterForm = () => {
       const response = await fetch(`${API_BASE}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password, role }),
+        body: JSON.stringify({ username, email, password, role: 'student' }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Chyba při registraci');
@@ -48,13 +47,6 @@ export const RegisterForm = () => {
         <div className="form-group">
           <label htmlFor="password">Heslo:</label>
           <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="role">Role:</label>
-          <select id="role" value={role} onChange={e => setRole(e.target.value)}>
-            <option value="student">Student</option>
-            <option value="teacher">Učitel</option>
-          </select>
         </div>
         <button type="submit">Registrovat</button>
         <p className="register-link">
