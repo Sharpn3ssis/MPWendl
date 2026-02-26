@@ -537,7 +537,7 @@ app.get('/api/years', async (req, res) => {
     const params = [];
     if (!requester || requester.role !== 'admin') {
       if (requester) {
-        conditions.push('(status = "published" OR owner_id = ?)');
+        conditions.push("(status = 'published' OR owner_id = ?)");
         params.push(requester.id);
       } else {
         conditions.push("status = 'published'");
@@ -566,7 +566,7 @@ app.get('/api/sources', async (req, res) => {
     }
     if (!requester || requester.role !== 'admin') {
       if (requester) {
-        clauses.push('(s.status = "published" OR s.owner_id = ?)');
+        clauses.push("(s.status = 'published' OR s.owner_id = ?)");
         params.push(requester.id);
       } else {
         clauses.push("s.status = 'published'");
