@@ -70,7 +70,10 @@ export const NewSourceForm: React.FC<Props> = ({ onAdded }) => {
             }}
           />
         </div>
-        <div style={{display:'flex',justifyContent:'flex-end',marginTop:14}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:14,gap:16}}>
+          <span style={{fontSize:13,color:'var(--muted)',fontStyle:'italic'}}>
+            💡 Text pramene můžete kdykoliv upravit i po vytvoření
+          </span>
           <button type="submit" disabled={loading} style={{padding:'0.5rem 1rem'}}>{loading? 'Ukládám...':'Uložit pramen'}</button>
         </div>
       </form>
