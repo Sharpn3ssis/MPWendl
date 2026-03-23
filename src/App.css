@@ -1272,6 +1272,10 @@ button:disabled {
 
 .source-video-section,
 .source-video-display {
+  display: block;
+}
+
+.source-video-section {
   display: none; /* Replaced by media-upload-section */
 }
 
