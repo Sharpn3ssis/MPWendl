@@ -283,7 +283,7 @@ export const SourcePage: React.FC = () => {
     </div>
   );
 
-  const buildSourcePayload = () => {
+  const buildSourcePayload = (sourceVideos: SourceVideo[] = videos) => {
     const trimmedText = textValue.trim();
     if (!trimmedText) {
       throw new Error('Text pramene je povinný');
@@ -294,11 +294,11 @@ export const SourcePage: React.FC = () => {
       text: trimmedText,
       content_json: null,
       content_html: contentHtml,
-      videos: prepareVideosForRequest(videos),
+      videos: prepareVideosForRequest(sourceVideos),
     };
   };
 
-  const persistSourceChanges = async () => {
+  const persistSourceChanges = async (sourceVideos: SourceVideo[] = videos) => {
     if (!canEdit) {
       return;
     }
@@ -308,7 +308,7 @@ export const SourcePage: React.FC = () => {
     }
     let payload;
     try {
-      payload = buildSourcePayload();
+      payload = buildSourcePayload(sourceVideos);
       setError('');
     } catch (err) {
       setSourceSaveState('error');
@@ -489,7 +489,7 @@ export const SourcePage: React.FC = () => {
               videos={videos}
               onChange={(nextVideos) => {
                 setVideos(nextVideos);
-                scheduleSourceAutoSave();
+                void persistSourceChanges(nextVideos);
               }}
             />
             <div className="source-editor-actions">
